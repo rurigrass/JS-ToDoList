@@ -6,6 +6,12 @@ const Tasks = function (url) {
 };
 
 Tasks.prototype.bindEvents = function () {
+
+  PubSub.subscribe('TaskList:task-delete-clicked', (evt) => {
+    console.log(evt.detail);
+    this.deleteTask(evt.detail);
+  });
+
   PubSub.subscribe('TaskFormView:task-submitted', (evt) => {
     this.postTask(evt.detail);
   });
@@ -21,10 +27,20 @@ Tasks.prototype.getData = function () {
 
 };
 
-Tasks.prototype.postTask= function (task) {
+Tasks.prototype.postTask = function (task) {
   const request = new Request(this.url);
   console.log(task);
   request.post(task)
+  .then((tasks) => {
+    PubSub.publish('Tasks:data-loaded', tasks);
+  })
+
+};
+
+Tasks.prototype.deleteTask = function (taskId) {
+  console.log(taskId);
+  const request = new Request(this.url);
+  request.delete(taskId)
   .then((tasks) => {
     PubSub.publish('Tasks:data-loaded', tasks);
   })

@@ -3,12 +3,18 @@ db.dropDatabase();
 
 db.tasks.insertMany([
   {
-    name: "Deal with Scott"
+    task: "Deal with Scott",
+    details: "break up",
+    completed: false
 },
 {
-  name: "Deal with aubergine"
+  task: "Deal with aubergine",
+  details: "break up",
+  completed: false
 },
 {
-  name: "buy Davina a marshmallow thing"
+  task: "buy Davina a marshmallow thing",
+  details: "when I get my first salary",
+  completed: false
 }
 ]);

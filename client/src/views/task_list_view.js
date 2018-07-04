@@ -6,9 +6,7 @@ const TaskListView = function (container) {
 };
 
 TaskListView.prototype.bindEvents = function () {
-  console.log("hello");
   PubSub.subscribe('Tasks:data-loaded', (evt) => {
-    console.log(evt);
     this.generate(evt.detail);
   });
 };
@@ -16,9 +14,29 @@ TaskListView.prototype.bindEvents = function () {
 
 TaskListView.prototype.generate = function (tasks) {
   this.container.innerHTML = '';
-  const taskView = new TaskView(this.container);
-  console.log(tasks);
-  tasks.forEach((task) => taskView.generate(task));
+  tasks.forEach((task) => {
+  const taskContainer = document.createElement('div');
+  this.container.appendChild(taskContainer);
+
+  const heading = document.createElement('h4');
+  heading.textContent = task.task;
+  taskContainer.appendChild(heading);
+
+  const detail = document.createElement('p');
+  detail.textContent = task.details;
+  taskContainer.appendChild(detail);
+
+  const deleteButton = document.createElement('button');
+  deleteButton.classList.add('delete-btn');
+  deleteButton.value = task._id;
+  taskContainer.appendChild(deleteButton);
+
+  deleteButton.addEventListener('click', (evt) => {
+    PubSub.publish('TaskList:task-delete-clicked', evt.target.value);
+  });
+
+});
+  return this.container
 };
 
 module.exports = TaskListView;

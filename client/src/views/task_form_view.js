@@ -19,7 +19,8 @@ TaskFormView.prototype.handleSubmit = function (evt) {
 
 TaskFormView.prototype.createTask = function (form) {
   const newTask = {
-    task: form.task.value
+    task: form.task.value,
+    details: form.details.value
   }
   return newTask;
 };
