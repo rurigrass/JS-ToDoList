@@ -5,12 +5,12 @@ const Tasks = function (url) {
   this.url = url;
 };
 
-// Tasks.prototype.bindEvents = function () {
-//   PubSub.subscribe('TaskFormView:task-submitted', (evt) => {
-//     this.postTask(evt.detail);
-//   });
-//
-// };
+Tasks.prototype.bindEvents = function () {
+  PubSub.subscribe('TaskFormView:task-submitted', (evt) => {
+    this.postTask(evt.detail);
+  });
+
+};
 
 Tasks.prototype.getData = function () {
   const request = new Request(this.url);
@@ -18,10 +18,16 @@ Tasks.prototype.getData = function () {
   .then((tasks) => {
     PubSub.publish('Tasks:data-loaded', tasks);
   });
-  .catch(console.error);
+
 };
 
-Tasks.prototype. = function () {
+Tasks.prototype.postTask= function (task) {
+  const request = new Request(this.url);
+  console.log(task);
+  request.post(task)
+  .then((tasks) => {
+    PubSub.publish('Tasks:data-loaded', tasks);
+  })
 
 };
 

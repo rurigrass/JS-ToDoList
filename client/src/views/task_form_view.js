@@ -24,4 +24,4 @@ TaskFormView.prototype.createTask = function (form) {
   return newTask;
 };
 
-module.exports = TaskFormView
+module.exports = TaskFormView;

@@ -8,4 +8,16 @@ TaskView.prototype.generate = function (task) {
   const taskContainer = document.createElement('div');
   this.container.appendChild(taskContainer);
 
+  const taskName = this.createHeading(task.name);
+  taskContainer.appendChild(taskName);
+
 };
+
+TaskView.prototype.createHeading = function (textContent) {
+  const heading = document.createElement('h4');
+  heading.textContent = textContent;
+  return heading;
+
+};
+
+module.exports = TaskView;
